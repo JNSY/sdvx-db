@@ -85,7 +85,7 @@ export default function BpmTable({
           <TableRow>
             <StyledTableCell>曲名</StyledTableCell>
             <StyledTableCell>LV</StyledTableCell>
-            {searchMode == "BPM" ? (
+            {searchMode == "BPM" || searchMode == "SONGNAME" ? (
               <StyledTableCell align="right">BPM</StyledTableCell>
             ) : (
               <StyledTableCell align="right">EFFECTOR</StyledTableCell>
@@ -93,10 +93,11 @@ export default function BpmTable({
             {user ? <StyledTableCell>FAV</StyledTableCell> : undefined}
           </TableRow>
         </TableHead>
+        {console.log(searchMode)}
         <TableBody>
           {/* TODO:エフェクターモードその他の追加 */}
           {bpm_data_rows.map((row: any, index: number) =>
-            searchMode == "BPM" ? (
+            searchMode == "BPM" || searchMode == "SONGNAME" ? (
               <StyledTableRow key={row.song_name}>
                 <StyledTableCell component="th" scope="row">
                   <a
