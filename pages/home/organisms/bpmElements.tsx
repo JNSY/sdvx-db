@@ -32,15 +32,6 @@ const DataBaseElements = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setSearchMode((event.target as HTMLInputElement).value);
-    searchMode == "BPM" ? setBpm(bpm) : setEffector("");
-    switch (searchMode) {
-      case "BPM":
-        setBpm(bpm);
-      case "SONGNAME":
-        setSongName(songName);
-      case "EFFECTOR":
-        setEffector(effector);
-    }
   };
 
   //TODO:命名をわかりやすいものに変える
@@ -52,6 +43,22 @@ const DataBaseElements = () => {
   //NOTE:テーブル名とリレーション名の区別をきちんとつけること。
   const searchQueryBasedOnBpm = `query MyQuery($bpm:String!,$uid:String!) {
     ${CHART_TABLE_NAME}(where: {bpm: {_eq: $bpm}}) {
+      ${CHART_TABLE_NAME}_to_${LIKE_TABLE_NAME}(where: {id_User: {_eq: $uid}}) {
+        id
+        id_Chart
+        id_User
+      }
+      song_name
+      id
+      official_ranking_url
+      effector
+      lv
+      bpm
+    }
+  }`;
+
+  const searchQueryBasedOnSongName = `query MyQuery($song_name:String!,$uid:String!) {
+    ${CHART_TABLE_NAME}(where: {song_name: {_eq: $song_name}}) {
       ${CHART_TABLE_NAME}_to_${LIKE_TABLE_NAME}(where: {id_User: {_eq: $uid}}) {
         id
         id_Chart
@@ -145,14 +152,26 @@ const DataBaseElements = () => {
 
   //検索フォームから検索を行う際に投げるクエリ
   const fetchCharts: any = async (enteredValue: any, uid: string) => {
-    const query2 = {
-      query: user ? searchQueryBasedOnBpm : notLoginQuery,
-      variables: user ? { bpm: enteredValue, uid: uid } : { bpm: enteredValue },
+    let searchQuery;
+    let variables;
+    switch (searchMode) {
+      case "BPM":
+        searchQuery = searchQueryBasedOnBpm;
+        variables = { bpm: enteredValue, uid: uid };
+        break;
+      case "SONGNAME":
+        searchQuery = searchQueryBasedOnSongName;
+        variables = { song_name: enteredValue, uid: uid };
+        break;
+    }
+    const query = {
+      query: user ? searchQuery : notLoginQuery,
+      variables: user ? variables : { bpm: enteredValue },
     };
     fetch(HASURA_ENDPOINT, {
       method: "POST",
       headers: { Authorization: `Bearer ${idToken}` },
-      body: JSON.stringify(query2),
+      body: JSON.stringify(query),
     }).then((response) => {
       response.json().then((fetchChartsResult) => {
         console.log("データ取得後、DBから返ってきたデータ", fetchChartsResult);
