@@ -251,11 +251,11 @@ const DataBaseElements = () => {
         >
           <FormControlLabel value="SONGNAME" control={<Radio />} label="曲名" />
           <FormControlLabel value="BPM" control={<Radio />} label="BPM" />
-          <FormControlLabel
+          {/* <FormControlLabel
             value="EFFECTOR"
             control={<Radio />}
             label="エフェクター"
-          />
+          /> */}
         </RadioGroup>
       </div>
       <BpmTable
