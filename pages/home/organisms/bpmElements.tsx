@@ -21,7 +21,7 @@ export type SearchMode = "BPM" | "EFFECTOR" | "SONGNAME";
 const DataBaseElements = () => {
   const [user, loading] = useAuthState(auth);
   const [searchMode, setSearchMode] = React.useState("BPM");
-  const [bpm, setBpm] = React.useState<string>("256");
+  const [bpm, setBpm] = React.useState<string>("");
   const [effector, setEffector] = React.useState("");
   const [songName, setSongName] = React.useState("");
 
