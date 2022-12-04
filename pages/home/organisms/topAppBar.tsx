@@ -3,9 +3,9 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../firebaseConfig";
+import { logout } from "../../../functions/logout";
 import logo from "../../../public/SDVXDB_alpha.png";
 import LoginButton from "../atoms/loginButton";
-import { logout } from "../functions/logout";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");

@@ -1,4 +1,4 @@
-import { login } from "../functions/login";
+import { login } from "../../../functions/login";
 
 const LoginButton = () => {
   return (

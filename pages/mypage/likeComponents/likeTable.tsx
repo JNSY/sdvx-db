@@ -7,8 +7,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useAuthState } from "react-firebase-hooks/auth";
+import {
+  CHART_TABLE_NAME,
+  LIKE_TABLE_NAME,
+} from "../../../constants/constants";
 import { auth } from "../../../firebaseConfig";
-import { CHART_TABLE_NAME, LIKE_TABLE_NAME } from "../../constants";
 
 export default function LikeTable({
   fetchedData,

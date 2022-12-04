@@ -7,13 +7,13 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { effectors } from "../../../constants/effector_data/effectors";
-import { auth } from "../../../firebaseConfig";
 import {
   CHART_TABLE_NAME,
   HASURA_ENDPOINT,
   LIKE_TABLE_NAME,
-} from "../../constants";
+} from "../../../constants/constants";
+import { effectors } from "../../../constants/effector_data/effectors";
+import { auth } from "../../../firebaseConfig";
 import TextFiedlRhf from "../atoms/textFieldRhf";
 import BpmTable from "../molecules/bpmTable";
 
