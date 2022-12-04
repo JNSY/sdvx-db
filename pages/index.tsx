@@ -1,5 +1,6 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Head from "next/head";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebaseConfig";
@@ -82,11 +83,27 @@ export default function Home() {
           <div className="flex justify-center">
             <Header />
           </div>
-          <div className="flex max-w-10 justify-center">
-            {user ? <BpmElements /> : "ログインしてください"}
+          <div className="flex max-w-10 justify-center clear-left">
+            {user ? (
+              <BpmElements />
+            ) : (
+              <div
+                style={{
+                  position: "relative",
+                  width: "500px",
+                  height: "500px",
+                  clear: "both",
+                }}
+              >
+                <Image
+                  src="/../public/notlogin.png"
+                  layout="fill"
+                  objectFit="contain"
+                />
+              </div>
+            )}
           </div>
         </div>
-        <div className="max-w-10 justify-items-center"></div>
         <Footer />
         <BottomAppBar />
       </body>

@@ -8,8 +8,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import {
+  CHART_TABLE_NAME,
+  LIKE_TABLE_NAME,
+} from "../../../constants/constants";
 import { auth } from "../../../firebaseConfig";
-import { CHART_TABLE_NAME, LIKE_TABLE_NAME } from "../../constants";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -72,11 +75,12 @@ export default function BpmTable({
 }) {
   const [user, loading] = useAuthState(auth);
   const [likeState, setLikeState] = useState([]); //中身はオブジェクト。。
+  let bpm_data_rows = [];
 
   console.log("ふぇっちど", fetchedData);
-  const bpm_data_rows = fetchedData.map((elm: any) => {
-    return createData(elm);
-  });
+  if (fetchedData) {
+    bpm_data_rows = fetchedData.map((elm: any) => createData(elm));
+  }
 
   return (
     <TableContainer component={Paper}>
@@ -85,7 +89,7 @@ export default function BpmTable({
           <TableRow>
             <StyledTableCell>曲名</StyledTableCell>
             <StyledTableCell>LV</StyledTableCell>
-            {searchMode == "BPM" ? (
+            {searchMode == "BPM" || searchMode == "SONGNAME" ? (
               <StyledTableCell align="right">BPM</StyledTableCell>
             ) : (
               <StyledTableCell align="right">EFFECTOR</StyledTableCell>
@@ -93,15 +97,17 @@ export default function BpmTable({
             {user ? <StyledTableCell>FAV</StyledTableCell> : undefined}
           </TableRow>
         </TableHead>
+        {console.log(searchMode)}
         <TableBody>
           {/* TODO:エフェクターモードその他の追加 */}
           {bpm_data_rows.map((row: any, index: number) =>
-            searchMode == "BPM" ? (
+            searchMode == "BPM" || searchMode == "SONGNAME" ? (
               <StyledTableRow key={row.song_name}>
                 <StyledTableCell component="th" scope="row">
                   <a
                     href={row.official_ranking_url}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="underline"
                   >
                     {row.song_name}

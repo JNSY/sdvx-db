@@ -1,4 +1,4 @@
-import { HASURA_ENDPOINT, LIKE_TABLE_NAME } from "../../constants";
+import { HASURA_ENDPOINT, LIKE_TABLE_NAME } from "../constants/constants";
 
 //NOTE:この関数は使ってないと思われるのでしばらくしたら削除
 

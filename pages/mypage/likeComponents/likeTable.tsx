@@ -7,8 +7,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useAuthState } from "react-firebase-hooks/auth";
+import {
+  CHART_TABLE_NAME,
+  LIKE_TABLE_NAME,
+} from "../../../constants/constants";
 import { auth } from "../../../firebaseConfig";
-import { CHART_TABLE_NAME, LIKE_TABLE_NAME } from "../../constants";
 
 export default function LikeTable({
   fetchedData,
@@ -59,14 +62,17 @@ export default function LikeTable({
 
   console.log(fetchedData, "ふぇっちど");
 
-  const bpm_data_rows = fetchedData.map((elm: any) => {
-    return createData(elm["likes_to_charts"]);
-  });
+  let bpm_data_rows = [];
+  if (fetchedData) {
+    bpm_data_rows = fetchedData.map((elm: any) =>
+      createData(elm["likes_to_charts"])
+    );
+  }
 
   console.log(bpm_data_rows);
 
   return (
-    <div>
+    <>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: "324px" }} aria-label="customized table">
           <TableHead>
@@ -80,7 +86,11 @@ export default function LikeTable({
             {bpm_data_rows.map((row: any) => (
               <StyledTableRow key={row.song_name}>
                 <StyledTableCell component="th" scope="row">
-                  <a href={row.official_ranking_url} target="_blank">
+                  <a
+                    href={row.official_ranking_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {row.song_name}
                   </a>
                 </StyledTableCell>
@@ -101,6 +111,6 @@ export default function LikeTable({
           </TableBody>
         </Table>
       </TableContainer>
-    </div>
+    </>
   );
 }

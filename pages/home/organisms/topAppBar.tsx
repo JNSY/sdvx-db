@@ -1,10 +1,11 @@
 import { Disclosure, Menu, Transition } from "@headlessui/react";
+import Link from "next/link";
 import { Fragment } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../firebaseConfig";
+import { logout } from "../../../functions/logout";
 import logo from "../../../public/SDVXDB_alpha.png";
 import LoginButton from "../atoms/loginButton";
-import { logout } from "../functions/logout";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -15,7 +16,7 @@ export const TopAppBar = () => {
 
   return (
     <Disclosure as="nav">
-      {({ open }) => (
+      {({ open }: { open: any }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 fixed top-0 left-0 right-0 z-10 bg-white border-b">
             <div className="relative flex h-16 items-center justify-between">
@@ -63,7 +64,7 @@ export const TopAppBar = () => {
                     >
                       <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <Menu.Item>
-                          {({ active }) => (
+                          {({ active }: { active: any }) => (
                             <a
                               href="#"
                               className={classNames(
@@ -76,8 +77,8 @@ export const TopAppBar = () => {
                           )}
                         </Menu.Item>
                         <Menu.Item>
-                          {({ active }) => (
-                            <a
+                          {({ active }: { active: any }) => (
+                            <Link
                               href="/mypage"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
@@ -85,11 +86,11 @@ export const TopAppBar = () => {
                               )}
                             >
                               マイページ
-                            </a>
+                            </Link>
                           )}
                         </Menu.Item>
                         <Menu.Item>
-                          {({ active }) => (
+                          {({ active }: { active: any }) => (
                             <a
                               className={classNames(
                                 active ? "bg-gray-100" : "",

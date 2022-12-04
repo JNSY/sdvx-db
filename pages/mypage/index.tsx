@@ -1,12 +1,12 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebaseConfig";
 import {
   CHART_TABLE_NAME,
   HASURA_ENDPOINT,
   LIKE_TABLE_NAME,
-} from "../constants";
+} from "../../constants/constants";
+import { auth } from "../../firebaseConfig";
 import Footer from "../footer";
 import BottomAppBar from "../home/organisms/bottomAppBar";
 import TopAppBar from "../home/organisms/topAppBar";
