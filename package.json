@@ -45,6 +45,7 @@
     "next": "^12.3.1-canary.2",
     "next-mdx-remote": "^4.1.0",
     "next-plausible": "^3.1.4",
+    "prettier": "^2.8.0",
     "react": "^17.0.2",
     "react-confetti": "^6.0.1",
     "react-dom": "^17.0.2",
@@ -79,7 +80,6 @@
     "eslint-config-next": "^12.1.7-canary.48",
     "eslint-plugin-tailwindcss": "^3.6.2",
     "postcss": "^8.4.16",
-    "prettier": "^2.5.1",
     "prisma": "^3.8.1",
     "tailwindcss": "^3.1.8",
     "typescript": "^4.6.2"
