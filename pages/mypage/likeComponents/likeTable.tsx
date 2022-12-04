@@ -80,7 +80,11 @@ export default function LikeTable({
             {bpm_data_rows.map((row: any) => (
               <StyledTableRow key={row.song_name}>
                 <StyledTableCell component="th" scope="row">
-                  <a href={row.official_ranking_url} target="_blank">
+                  <a
+                    href={row.official_ranking_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {row.song_name}
                   </a>
                 </StyledTableCell>

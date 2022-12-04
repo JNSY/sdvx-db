@@ -103,6 +103,7 @@ export default function BpmTable({
                   <a
                     href={row.official_ranking_url}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="underline"
                   >
                     {row.song_name}

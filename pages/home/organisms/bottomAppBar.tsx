@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const BottomAppBar = () => {
   return (
     <div className="w-full">
@@ -6,7 +8,7 @@ const BottomAppBar = () => {
         className="block fixed inset-x-0 bottom-0 z-10 bg-white shadow"
       >
         <div id="tabs" className="flex justify-between">
-          <a
+          <Link
             href="/"
             className="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1"
           >
@@ -54,8 +56,8 @@ const BottomAppBar = () => {
               </g>
             </svg>
             <span className="tab tab-home block text-xs">ホーム</span>
-          </a>
-          <a
+          </Link>
+          <Link
             href="/help"
             className="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1"
           >
@@ -103,7 +105,7 @@ const BottomAppBar = () => {
               </g>
             </svg>
             <span className="tab tab-kategori block text-xs">ヘルプ</span>
-          </a>
+          </Link>
           <a
             href="#"
             className="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1"
@@ -153,7 +155,7 @@ const BottomAppBar = () => {
             </svg>
             <span className="tab tab-whishlist block text-xs">ランキング</span>
           </a>
-          <a
+          <Link
             href="/mypage"
             className="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1"
           >
@@ -201,7 +203,7 @@ const BottomAppBar = () => {
               </g>
             </svg>
             <span className="tab tab-account block text-xs">マイページ</span>
-          </a>
+          </Link>
         </div>
       </section>
     </div>

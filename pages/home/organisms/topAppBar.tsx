@@ -1,4 +1,5 @@
 import { Disclosure, Menu, Transition } from "@headlessui/react";
+import Link from "next/link";
 import { Fragment } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../firebaseConfig";
@@ -77,7 +78,7 @@ export const TopAppBar = () => {
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }: { active: any }) => (
-                            <a
+                            <Link
                               href="/mypage"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
@@ -85,7 +86,7 @@ export const TopAppBar = () => {
                               )}
                             >
                               マイページ
-                            </a>
+                            </Link>
                           )}
                         </Menu.Item>
                         <Menu.Item>
