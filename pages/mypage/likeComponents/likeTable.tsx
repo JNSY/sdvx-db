@@ -62,9 +62,12 @@ export default function LikeTable({
 
   console.log(fetchedData, "ふぇっちど");
 
-  const bpm_data_rows = fetchedData.map((elm: any) => {
-    return createData(elm["likes_to_charts"]);
-  });
+  let bpm_data_rows = [];
+  if (fetchedData) {
+    bpm_data_rows = fetchedData.map((elm: any) =>
+      createData(elm["likes_to_charts"])
+    );
+  }
 
   console.log(bpm_data_rows);
 
