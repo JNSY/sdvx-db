@@ -75,11 +75,12 @@ export default function BpmTable({
 }) {
   const [user, loading] = useAuthState(auth);
   const [likeState, setLikeState] = useState([]); //中身はオブジェクト。。
+  let bpm_data_rows = [];
 
   console.log("ふぇっちど", fetchedData);
-  const bpm_data_rows = fetchedData.map((elm: any) => {
-    return createData(elm);
-  });
+  if (fetchedData) {
+    bpm_data_rows = fetchedData.map((elm: any) => createData(elm));
+  }
 
   return (
     <TableContainer component={Paper}>
