@@ -69,7 +69,7 @@ export default function LikeTable({
   console.log(bpm_data_rows);
 
   return (
-    <div>
+    <>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: "324px" }} aria-label="customized table">
           <TableHead>
@@ -108,6 +108,6 @@ export default function LikeTable({
           </TableBody>
         </Table>
       </TableContainer>
-    </div>
+    </>
   );
 }
