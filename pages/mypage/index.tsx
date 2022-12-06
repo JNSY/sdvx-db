@@ -106,7 +106,7 @@ const MyPage = () => {
   };
 
   return (
-    <div>
+    <div className="max-w-0-1 p-8">
       <body>
         <TopAppBar />
         <div className="h-16 m-4"></div>
