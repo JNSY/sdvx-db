@@ -57,11 +57,8 @@ export default function Home() {
             />
           </>
         )}
-        <meta property="og:title" content="SDVX BPM DATABASE" />
-        <meta
-          property="og:description"
-          content="SDVXの楽曲をBPM基準で検索できるツール"
-        />
+        <meta property="og:title" content="SDVX DB" />
+        <meta property="og:description" content="SDVX DB" />
         {/* <meta
           property="og:image"
           content="../public/sdvx_bpm_database_logo_for_twitter.png"
@@ -71,11 +68,8 @@ export default function Home() {
           content="../public/sdvx_bpm_database_logo_for_twitter.png"
         />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="SDVX BPM DATABASE" />
-        <meta
-          name="twitter:description"
-          content="SDVXの楽曲をBPM基準で検索できるツール"
-        />
+        <meta name="twitter:title" content="SDVX DB" />
+        <meta name="twitter:description" content="SDVX DB" />
       </Head>
       <body>
         <TopAppBar />
@@ -95,11 +89,7 @@ export default function Home() {
                   clear: "both",
                 }}
               >
-                <Image
-                  src="/../public/notlogin.png"
-                  layout="fill"
-                  objectFit="contain"
-                />
+                <Image src="/notlogin.png" layout="fill" objectFit="contain" />
               </div>
             )}
           </div>
