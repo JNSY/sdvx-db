@@ -70,8 +70,8 @@ export default function BpmTable({
   searchMode: any; //TODO:タイプをSearchModeにするとエラーになる謎の解消
   fetchedData: any;
   idToken: string;
-  onDeleteLike: any;
-  onAddLike: any;
+  onDeleteLike: (user: any, rowsongid: any, idToken: any) => void;
+  onAddLike: (user: any, rowsongid: any, idToken: any) => void;
 }) {
   const [user, loading] = useAuthState(auth);
   const [likeState, setLikeState] = useState([]); //中身はオブジェクト。。

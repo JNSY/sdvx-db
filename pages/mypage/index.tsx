@@ -27,6 +27,7 @@ const MyPage = () => {
         song_name
         id
         lv
+        official_ranking_url
       }
     }
   }`;
@@ -106,14 +107,15 @@ const MyPage = () => {
   };
 
   return (
-    <div className="max-w-0-1 p-8">
+    <div className="p-8 flex justify-center ">
       <body>
+        {loading ? <p>loading...</p> : undefined}
         <TopAppBar />
         <div className="h-16 m-4"></div>
-        <div className="flex max-w-10 justify-center">
+        <div className="flex max-w-7xl justify-center">
           <p>お気に入り譜面一覧</p>
         </div>
-        <div className="flex max-w-10 justify-center">
+        <div className="flex justify-center">
           <LikeTable fetchedData={likedCharts} onDeleteLike={onDeleteLike} />
         </div>
         <Footer />

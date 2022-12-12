@@ -70,7 +70,6 @@ export default function LikeTable({
   }
 
   console.log(bpm_data_rows);
-
   return (
     <>
       <TableContainer component={Paper}>
@@ -83,31 +82,36 @@ export default function LikeTable({
             </TableRow>
           </TableHead>
           <TableBody>
-            {bpm_data_rows.map((row: any) => (
-              <StyledTableRow key={row.song_name}>
-                <StyledTableCell component="th" scope="row">
-                  <a
-                    href={row.official_ranking_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {row.song_name}
-                  </a>
-                </StyledTableCell>
-                <StyledTableCell component="th" scope="row">
-                  {row.lv}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  <button
-                    onClick={() => {
-                      onDeleteLike(user!.uid, row.songid);
-                    }}
-                  >
-                    <div className="text-red-500">★</div>
-                  </button>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
+            {loading ? (
+              <p>loading...</p>
+            ) : (
+              bpm_data_rows.map((row: any) => (
+                <StyledTableRow key={row.song_name}>
+                  <StyledTableCell component="th" scope="row">
+                    <a
+                      href={row.official_ranking_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline"
+                    >
+                      {row.song_name}
+                    </a>
+                  </StyledTableCell>
+                  <StyledTableCell component="th" scope="row">
+                    {row.lv}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    <button
+                      onClick={() => {
+                        onDeleteLike(user!.uid, row.songid);
+                      }}
+                    >
+                      <div className="text-red-500">★</div>
+                    </button>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>

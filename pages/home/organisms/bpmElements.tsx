@@ -86,7 +86,7 @@ const DataBaseElements = () => {
         }}
     }`;
 
-    const addLikemutation: any = async () => {
+    const addLikemutation: any = async (): Promise<void> => {
       const query = { query: queryStr };
       fetch("https://sdvxdb-dev.hasura.app/v1/graphql", {
         method: "POST",
@@ -190,11 +190,11 @@ const DataBaseElements = () => {
     fetchCharts(enteredValue, uid);
   };
 
-  const onAddLike = (user: any, rowsongid: any, idToken: any) => {
+  const onAddLike = (user: any, rowsongid: any, idToken: any): void => {
     addLike(user, rowsongid, idToken);
   };
 
-  const onDeleteLike = (user: any, rowsongid: any, idToken: any) => {
+  const onDeleteLike = (user: any, rowsongid: any, idToken: any): void => {
     deleteLike(user, rowsongid, idToken);
   };
 
