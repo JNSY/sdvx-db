@@ -7,9 +7,9 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useQuery } from "urql";
 import {
   CHART_TABLE_NAME,
-  HASURA_ENDPOINT,
   LIKE_TABLE_NAME,
 } from "../../../constants/constants";
 import { effectors } from "../../../constants/effector_data/effectors";
@@ -150,34 +150,19 @@ const DataBaseElements = () => {
     }
   }`;
 
+  const [result, reexecuteQuery] = useQuery({
+    query: searchQueryBasedOnBpm,
+    variables: { bpm: bpm, uid: user?.uid },
+  });
+
+  const { data, fetching, error } = result;
+
   //検索フォームから検索を行う際に投げるクエリ
   const fetchCharts: any = async (enteredValue: any, uid: string) => {
-    let searchQuery;
-    let variables;
-    switch (searchMode) {
-      case "BPM":
-        searchQuery = searchQueryBasedOnBpm;
-        variables = { bpm: enteredValue, uid: uid };
-        break;
-      case "SONGNAME":
-        searchQuery = searchQueryBasedOnSongName;
-        variables = { song_name: enteredValue, uid: uid };
-        break;
-    }
-    const query = {
-      query: user ? searchQuery : notLoginQuery,
-      variables: user ? variables : { bpm: enteredValue },
-    };
-    fetch(HASURA_ENDPOINT, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${idToken}` },
-      body: JSON.stringify(query),
-    }).then((response) => {
-      response.json().then((fetchChartsResult) => {
-        console.log("データ取得後、DBから返ってきたデータ", fetchChartsResult);
-        setLangs(fetchChartsResult.data.charts);
-      });
-    });
+    setBpm(enteredValue);
+    console.log(data);
+    console.log(error);
+    setLangs(data.charts);
   };
 
   //子コンポーネントに入力された値を親コンポーネント(これ)に伝える関数
