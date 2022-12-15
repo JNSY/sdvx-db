@@ -21,7 +21,6 @@ export default function Home() {
     url: "https://sdvxdb-dev.hasura.app/v1/graphql",
     fetchOptions: () => {
       const token = process.env.HASURA_GRAPHQL_ADMIN_SECRET;
-      console.log(token);
       return {
         headers: {
           Authorization: `Bearer ${idToken}`,

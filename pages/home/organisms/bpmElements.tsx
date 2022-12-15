@@ -21,7 +21,7 @@ export type SearchMode = "BPM" | "EFFECTOR" | "SONGNAME";
 const DataBaseElements = () => {
   const [user, loading] = useAuthState(auth);
   const [searchMode, setSearchMode] = React.useState("BPM");
-  const [bpm, setBpm] = React.useState<string>("");
+  const [bpm, setBpm] = React.useState<string>();
   const [effector, setEffector] = React.useState("");
   const [songName, setSongName] = React.useState("");
 
@@ -33,12 +33,6 @@ const DataBaseElements = () => {
   ) => {
     setSearchMode((event.target as HTMLInputElement).value);
   };
-
-  //TODO:命名をわかりやすいものに変える
-  const [langs, setLangs] = useState([
-    // example:{ song_name: "a", bpm: "", lv: "", effector: "" }
-  ]);
-  console.log("現在のlangs", langs);
 
   //NOTE:テーブル名とリレーション名の区別をきちんとつけること。
   const searchQueryBasedOnBpm = `query MyQuery($bpm:String!,$uid:String!) {
@@ -150,29 +144,22 @@ const DataBaseElements = () => {
     }
   }`;
 
+  const shouldPause = bpm === undefined || bpm === null;
+
   const [result, reexecuteQuery] = useQuery({
     query: searchQueryBasedOnBpm,
     variables: { bpm: bpm, uid: user?.uid },
+    pause: shouldPause,
   });
-
   const { data, fetching, error } = result;
 
-  //検索フォームから検索を行う際に投げるクエリ
-  const fetchCharts: any = async (enteredValue: any, uid: string) => {
-    setBpm(enteredValue);
-    console.log(data);
-    console.log(error);
-    setLangs(data.charts);
-  };
-
   //子コンポーネントに入力された値を親コンポーネント(これ)に伝える関数
-  //TODO:any修正。フォームに入力された値。
   const addEnteredValue = (value: any) => {
-    const enteredValue = value.example;
-    const uid = user ? user!.uid : null; //非ログイン時はnull
+    const uid = user ? user!.uid : null;
     const bpm = value["example"];
     setBpm(bpm);
-    fetchCharts(enteredValue, uid);
+    console.log("addEnteredValueが実行されました。BPMは", bpm, uid);
+    reexecuteQuery({ requestPolicy: "network-only" });
   };
 
   const onAddLike = (user: any, rowsongid: any, idToken: any): void => {
@@ -247,7 +234,7 @@ const DataBaseElements = () => {
         selectedBpm={bpm}
         selectedEffector={effector}
         searchMode={searchMode}
-        fetchedData={langs}
+        fetchedData={data}
         idToken={idToken}
         onDeleteLike={onDeleteLike}
         onAddLike={onAddLike}

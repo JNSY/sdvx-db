@@ -79,7 +79,7 @@ export default function BpmTable({
 
   console.log("ふぇっちど", fetchedData);
   if (fetchedData) {
-    bpm_data_rows = fetchedData.map((elm: any) => createData(elm));
+    bpm_data_rows = fetchedData["charts"].map((elm: any) => createData(elm));
   }
 
   return (
@@ -97,7 +97,6 @@ export default function BpmTable({
             {user ? <StyledTableCell>FAV</StyledTableCell> : undefined}
           </TableRow>
         </TableHead>
-        {console.log(searchMode)}
         <TableBody>
           {/* TODO:エフェクターモードその他の追加 */}
           {bpm_data_rows.map((row: any, index: number) =>
