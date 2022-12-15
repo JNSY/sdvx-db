@@ -67,35 +67,6 @@ const DataBaseElements = () => {
     }
   }`;
 
-  //いいねに追加する関数
-  const addLike: any = (user: any, songid: string, idToken: string) => {
-    const queryStr = `mutation MyMutation {    insert_${LIKE_TABLE_NAME}(objects: {id_Chart:${songid} , id_User: ${user}}){      returning {
-      ${LIKE_TABLE_NAME}_to_${CHART_TABLE_NAME} {
-            bpm
-            chain
-            composer
-            effector
-            id
-          }
-        }}
-    }`;
-
-    const addLikemutation: any = async (): Promise<void> => {
-      const query = { query: queryStr };
-      fetch("https://sdvxdb-dev.hasura.app/v1/graphql", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${idToken}` },
-        body: JSON.stringify(query),
-      }).then((response) => {
-        response.json().then((fetchChartsResult) => {
-          console.log("追加時にDBから返ってきたデータ", fetchChartsResult);
-          fetchCharts(bpm, user);
-        });
-      });
-    };
-    addLikemutation();
-  };
-
   //いいねを削除する関数
   const deleteLike: any = (user: any, songid: string, idToken: string) => {
     const queryStr = `mutation MyMutation {    delete_${LIKE_TABLE_NAME}(where: {id_Chart:{_eq:${songid}} , id_User: {_eq:${user}}}){      returning {
@@ -160,10 +131,6 @@ const DataBaseElements = () => {
     setBpm(bpm);
     console.log("addEnteredValueが実行されました。BPMは", bpm, uid);
     reexecuteQuery({ requestPolicy: "network-only" });
-  };
-
-  const onAddLike = (user: any, rowsongid: any, idToken: any): void => {
-    addLike(user, rowsongid, idToken);
   };
 
   const onDeleteLike = (user: any, rowsongid: any, idToken: any): void => {
@@ -237,7 +204,6 @@ const DataBaseElements = () => {
         fetchedData={data}
         idToken={idToken}
         onDeleteLike={onDeleteLike}
-        onAddLike={onAddLike}
       />
     </div>
   );

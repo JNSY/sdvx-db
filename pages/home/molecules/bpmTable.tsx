@@ -6,8 +6,9 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useMutation } from "urql";
 import {
   CHART_TABLE_NAME,
   LIKE_TABLE_NAME,
@@ -63,7 +64,6 @@ export default function BpmTable({
   fetchedData,
   idToken,
   onDeleteLike,
-  onAddLike,
 }: {
   selectedBpm: any;
   selectedEffector: any;
@@ -71,16 +71,40 @@ export default function BpmTable({
   fetchedData: any;
   idToken: string;
   onDeleteLike: (user: any, rowsongid: any, idToken: any) => void;
-  onAddLike: (user: any, rowsongid: any, idToken: any) => void;
 }) {
   const [user, loading] = useAuthState(auth);
   const [likeState, setLikeState] = useState([]); //中身はオブジェクト。。
-  let bpm_data_rows = [];
+  const [bpmDataRows, setBpmDataRows] = useState([]);
+  const [selectedSongId, setSelectedSongId] = useState();
 
-  console.log("ふぇっちど", fetchedData);
-  if (fetchedData) {
-    bpm_data_rows = fetchedData["charts"].map((elm: any) => createData(elm));
-  }
+  const queryStr = `mutation MyMutation($songid:Int! ,$uid:String!) {insert_likes(objects: {id_Chart:$songid, id_User: $uid}){returning {
+      likes_to_charts {
+            bpm
+            chain
+            composer
+            effector
+            id
+          }
+        }}
+    }`;
+
+  const [result, reexecuteQuery] = useMutation({
+    query: queryStr,
+    variables: { songid: selectedSongId, uid: user?.uid },
+  });
+  const { data, fetching, error } = result;
+
+  useEffect(() => {
+    console.log("ふぇっちど", fetchedData);
+    if (fetchedData) {
+      setBpmDataRows(fetchedData["charts"].map((elm: any) => createData(elm)));
+    }
+  }, [fetchedData]);
+
+  const addLike = (user: any, rowsongid: any) => {
+    setSelectedSongId(rowsongid);
+    setBpmDataRows(data["charts"].map((elm: any) => createData(elm)));
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -99,7 +123,7 @@ export default function BpmTable({
         </TableHead>
         <TableBody>
           {/* TODO:エフェクターモードその他の追加 */}
-          {bpm_data_rows.map((row: any, index: number) =>
+          {bpmDataRows.map((row: any, index: number) =>
             searchMode == "BPM" || searchMode == "SONGNAME" ? (
               <StyledTableRow key={row.song_name}>
                 <StyledTableCell component="th" scope="row">
@@ -130,7 +154,7 @@ export default function BpmTable({
                     ) : (
                       <button
                         onClick={() => {
-                          onAddLike(user!.uid, row.songid, idToken);
+                          addLike(user!.uid, row.songid);
                         }}
                       >
                         <div className="text-black-500">★</div>
