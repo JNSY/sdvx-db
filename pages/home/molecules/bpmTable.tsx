@@ -88,11 +88,7 @@ export default function BpmTable({
         }}
     }`;
 
-  const [result, reexecuteQuery] = useMutation({
-    query: queryStr,
-    variables: { songid: selectedSongId, uid: user?.uid },
-  });
-  const { data, fetching, error } = result;
+  const [updateLikeResult, updateLike] = useMutation(queryStr);
 
   useEffect(() => {
     console.log("ふぇっちど", fetchedData);
@@ -100,11 +96,6 @@ export default function BpmTable({
       setBpmDataRows(fetchedData["charts"].map((elm: any) => createData(elm)));
     }
   }, [fetchedData]);
-
-  const addLike = (user: any, rowsongid: any) => {
-    setSelectedSongId(rowsongid);
-    setBpmDataRows(data["charts"].map((elm: any) => createData(elm)));
-  };
 
   return (
     <TableContainer component={Paper}>
@@ -154,7 +145,10 @@ export default function BpmTable({
                     ) : (
                       <button
                         onClick={() => {
-                          addLike(user!.uid, row.songid);
+                          updateLike({
+                            songid: row.songid,
+                            uid: user!.uid,
+                          });
                         }}
                       >
                         <div className="text-black-500">★</div>
