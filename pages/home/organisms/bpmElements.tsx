@@ -67,35 +67,6 @@ const DataBaseElements = () => {
     }
   }`;
 
-  //いいねを削除する関数
-  const deleteLike: any = (user: any, songid: string, idToken: string) => {
-    const queryStr = `mutation MyMutation {    delete_${LIKE_TABLE_NAME}(where: {id_Chart:{_eq:${songid}} , id_User: {_eq:${user}}}){      returning {
-      ${LIKE_TABLE_NAME}_to_${CHART_TABLE_NAME} {
-        bpm
-        chain
-        composer
-        effector
-        id
-      }
-    }}
-  }`;
-
-    const deleteMutation: any = async () => {
-      const query = { query: queryStr };
-      fetch("https://sdvxdb-dev.hasura.app/v1/graphql", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${idToken}` },
-        body: JSON.stringify(query),
-      }).then((response) => {
-        response.json().then((fetchChartsResult) => {
-          console.log("削除試行後、DBから返ってきたデータ", fetchChartsResult);
-          fetchCharts(bpm, user);
-        });
-      });
-    };
-    deleteMutation();
-  };
-
   const observeLoginUser = function (user: any) {
     //ログイン状態が変更された時の処理
     if (user) {
@@ -131,10 +102,6 @@ const DataBaseElements = () => {
     setBpm(bpm);
     console.log("addEnteredValueが実行されました。BPMは", bpm, uid);
     reexecuteQuery({ requestPolicy: "network-only" });
-  };
-
-  const onDeleteLike = (user: any, rowsongid: any, idToken: any): void => {
-    deleteLike(user, rowsongid, idToken);
   };
 
   useEffect(() => {
@@ -203,7 +170,6 @@ const DataBaseElements = () => {
         searchMode={searchMode}
         fetchedData={data}
         idToken={idToken}
-        onDeleteLike={onDeleteLike}
       />
     </div>
   );
