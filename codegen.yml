@@ -1,0 +1,22 @@
+overwrite: true
+schema:
+  - "https://sdvxdb-dev.hasura.app/v1/graphql":
+      headers:
+        - "x-hasura-admin-secret": "<%= ENV['HASURA_GRAPHQL_ADMIN_SECRET'] %>"
+documents: "graphql/*.graphql"
+generates:
+  graphql/generated.tsx:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-urql"
+      - "typed-document-node"
+    config:
+      - skipTypename: false
+      - withHooks: true
+      - withHOC: false
+      - withComponent: false
+      - preResolveTypes: false
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"
