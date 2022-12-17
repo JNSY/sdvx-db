@@ -7,13 +7,9 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useQuery } from "urql";
-import {
-  CHART_TABLE_NAME,
-  LIKE_TABLE_NAME,
-} from "../../../constants/constants";
 import { effectors } from "../../../constants/effector_data/effectors";
 import { auth } from "../../../firebaseConfig";
+import { useMyQueryQuery } from "../../../graphql/generated";
 import TextFiedlRhf from "../atoms/textFieldRhf";
 import BpmTable from "../molecules/bpmTable";
 
@@ -36,8 +32,8 @@ const DataBaseElements = () => {
 
   //NOTE:テーブル名とリレーション名の区別をきちんとつけること。
   const searchQueryBasedOnBpm = `query MyQuery($bpm:String!,$uid:String!) {
-    ${CHART_TABLE_NAME}(where: {bpm: {_eq: $bpm}}) {
-      ${CHART_TABLE_NAME}_to_${LIKE_TABLE_NAME}(where: {id_User: {_eq: $uid}}) {
+    charts(where: {bpm: {_eq: $bpm}}) {
+      likes(where: {id_User: {_eq: $uid}}) {
         id
         id_Chart
         id_User
@@ -52,8 +48,8 @@ const DataBaseElements = () => {
   }`;
 
   const searchQueryBasedOnSongName = `query MyQuery($song_name:String!,$uid:String!) {
-    ${CHART_TABLE_NAME}(where: {song_name: {_eq: $song_name}}) {
-      ${CHART_TABLE_NAME}_to_${LIKE_TABLE_NAME}(where: {id_User: {_eq: $uid}}) {
+    charts(where: {song_name: {_eq: $song_name}}) {
+      likes(where: {id_User: {_eq: $uid}}) {
         id
         id_Chart
         id_User
@@ -77,7 +73,7 @@ const DataBaseElements = () => {
   };
 
   const notLoginQuery = `query MyQuery($bpm:String!) {
-    ${CHART_TABLE_NAME}(where: {bpm: {_eq: $bpm}}) {
+    charts(where: {bpm: {_eq: $bpm}}) {
       song_name
       id
       official_ranking_url
@@ -88,11 +84,11 @@ const DataBaseElements = () => {
 
   const shouldPause = bpm === undefined || bpm === null;
 
-  const [result, reexecuteQuery] = useQuery({
-    query: searchQueryBasedOnBpm,
-    variables: { bpm: bpm, uid: user?.uid },
+  const [result, reexecuteQuery] = useMyQueryQuery({
+    variables: { bpm: bpm!, uid: user?.uid! },
     pause: shouldPause,
   });
+
   const { data, fetching, error } = result;
 
   //子コンポーネントに入力された値を親コンポーネント(これ)に伝える関数
