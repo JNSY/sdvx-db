@@ -1,17 +1,10 @@
-import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
-import gql from "graphql-tag";
-import * as Urql from "urql";
+import gql from 'graphql-tag';
+import * as Urql from 'urql';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -24,71 +17,72 @@ export type Scalars = {
 
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
 export type Int_Comparison_Exp = {
-  _eq?: InputMaybe<Scalars["Int"]>;
-  _gt?: InputMaybe<Scalars["Int"]>;
-  _gte?: InputMaybe<Scalars["Int"]>;
-  _in?: InputMaybe<Array<Scalars["Int"]>>;
-  _is_null?: InputMaybe<Scalars["Boolean"]>;
-  _lt?: InputMaybe<Scalars["Int"]>;
-  _lte?: InputMaybe<Scalars["Int"]>;
-  _neq?: InputMaybe<Scalars["Int"]>;
-  _nin?: InputMaybe<Array<Scalars["Int"]>>;
+  _eq?: InputMaybe<Scalars['Int']>;
+  _gt?: InputMaybe<Scalars['Int']>;
+  _gte?: InputMaybe<Scalars['Int']>;
+  _in?: InputMaybe<Array<Scalars['Int']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['Int']>;
+  _lte?: InputMaybe<Scalars['Int']>;
+  _neq?: InputMaybe<Scalars['Int']>;
+  _nin?: InputMaybe<Array<Scalars['Int']>>;
 };
 
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
 export type String_Comparison_Exp = {
-  _eq?: InputMaybe<Scalars["String"]>;
-  _gt?: InputMaybe<Scalars["String"]>;
-  _gte?: InputMaybe<Scalars["String"]>;
+  _eq?: InputMaybe<Scalars['String']>;
+  _gt?: InputMaybe<Scalars['String']>;
+  _gte?: InputMaybe<Scalars['String']>;
   /** does the column match the given case-insensitive pattern */
-  _ilike?: InputMaybe<Scalars["String"]>;
-  _in?: InputMaybe<Array<Scalars["String"]>>;
+  _ilike?: InputMaybe<Scalars['String']>;
+  _in?: InputMaybe<Array<Scalars['String']>>;
   /** does the column match the given POSIX regular expression, case insensitive */
-  _iregex?: InputMaybe<Scalars["String"]>;
-  _is_null?: InputMaybe<Scalars["Boolean"]>;
+  _iregex?: InputMaybe<Scalars['String']>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
   /** does the column match the given pattern */
-  _like?: InputMaybe<Scalars["String"]>;
-  _lt?: InputMaybe<Scalars["String"]>;
-  _lte?: InputMaybe<Scalars["String"]>;
-  _neq?: InputMaybe<Scalars["String"]>;
+  _like?: InputMaybe<Scalars['String']>;
+  _lt?: InputMaybe<Scalars['String']>;
+  _lte?: InputMaybe<Scalars['String']>;
+  _neq?: InputMaybe<Scalars['String']>;
   /** does the column NOT match the given case-insensitive pattern */
-  _nilike?: InputMaybe<Scalars["String"]>;
-  _nin?: InputMaybe<Array<Scalars["String"]>>;
+  _nilike?: InputMaybe<Scalars['String']>;
+  _nin?: InputMaybe<Array<Scalars['String']>>;
   /** does the column NOT match the given POSIX regular expression, case insensitive */
-  _niregex?: InputMaybe<Scalars["String"]>;
+  _niregex?: InputMaybe<Scalars['String']>;
   /** does the column NOT match the given pattern */
-  _nlike?: InputMaybe<Scalars["String"]>;
+  _nlike?: InputMaybe<Scalars['String']>;
   /** does the column NOT match the given POSIX regular expression, case sensitive */
-  _nregex?: InputMaybe<Scalars["String"]>;
+  _nregex?: InputMaybe<Scalars['String']>;
   /** does the column NOT match the given SQL regular expression */
-  _nsimilar?: InputMaybe<Scalars["String"]>;
+  _nsimilar?: InputMaybe<Scalars['String']>;
   /** does the column match the given POSIX regular expression, case sensitive */
-  _regex?: InputMaybe<Scalars["String"]>;
+  _regex?: InputMaybe<Scalars['String']>;
   /** does the column match the given SQL regular expression */
-  _similar?: InputMaybe<Scalars["String"]>;
+  _similar?: InputMaybe<Scalars['String']>;
 };
 
 /** columns and relationships of "charts" */
 export type Charts = {
-  __typename?: "charts";
-  bpm: Scalars["String"];
-  chain?: Maybe<Scalars["Int"]>;
-  composer?: Maybe<Scalars["String"]>;
-  effector?: Maybe<Scalars["String"]>;
-  id: Scalars["Int"];
+  __typename?: 'charts';
+  bpm: Scalars['String'];
+  chain?: Maybe<Scalars['Int']>;
+  composer?: Maybe<Scalars['String']>;
+  effector?: Maybe<Scalars['String']>;
+  id: Scalars['Int'];
   /** An array relationship */
   likes: Array<Likes>;
-  lv?: Maybe<Scalars["Int"]>;
-  official_ranking_url?: Maybe<Scalars["String"]>;
-  sdvxin_url?: Maybe<Scalars["String"]>;
-  song_name: Scalars["String"];
+  lv?: Maybe<Scalars['Int']>;
+  official_ranking_url?: Maybe<Scalars['String']>;
+  sdvxin_url?: Maybe<Scalars['String']>;
+  song_name: Scalars['String'];
 };
+
 
 /** columns and relationships of "charts" */
 export type ChartsLikesArgs = {
   distinct_on?: InputMaybe<Array<Likes_Select_Column>>;
-  limit?: InputMaybe<Scalars["Int"]>;
-  offset?: InputMaybe<Scalars["Int"]>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Likes_Order_By>>;
   where?: InputMaybe<Likes_Bool_Exp>;
 };
@@ -127,23 +121,23 @@ export type Charts_Order_By = {
 /** select columns of table "charts" */
 export enum Charts_Select_Column {
   /** column name */
-  Bpm = "bpm",
+  Bpm = 'bpm',
   /** column name */
-  Chain = "chain",
+  Chain = 'chain',
   /** column name */
-  Composer = "composer",
+  Composer = 'composer',
   /** column name */
-  Effector = "effector",
+  Effector = 'effector',
   /** column name */
-  Id = "id",
+  Id = 'id',
   /** column name */
-  Lv = "lv",
+  Lv = 'lv',
   /** column name */
-  OfficialRankingUrl = "official_ranking_url",
+  OfficialRankingUrl = 'official_ranking_url',
   /** column name */
-  SdvxinUrl = "sdvxin_url",
+  SdvxinUrl = 'sdvxin_url',
   /** column name */
-  SongName = "song_name",
+  SongName = 'song_name'
 }
 
 /** Streaming cursor of the table "charts" */
@@ -156,42 +150,43 @@ export type Charts_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Charts_Stream_Cursor_Value_Input = {
-  bpm?: InputMaybe<Scalars["String"]>;
-  chain?: InputMaybe<Scalars["Int"]>;
-  composer?: InputMaybe<Scalars["String"]>;
-  effector?: InputMaybe<Scalars["String"]>;
-  id?: InputMaybe<Scalars["Int"]>;
-  lv?: InputMaybe<Scalars["Int"]>;
-  official_ranking_url?: InputMaybe<Scalars["String"]>;
-  sdvxin_url?: InputMaybe<Scalars["String"]>;
-  song_name?: InputMaybe<Scalars["String"]>;
+  bpm?: InputMaybe<Scalars['String']>;
+  chain?: InputMaybe<Scalars['Int']>;
+  composer?: InputMaybe<Scalars['String']>;
+  effector?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  lv?: InputMaybe<Scalars['Int']>;
+  official_ranking_url?: InputMaybe<Scalars['String']>;
+  sdvxin_url?: InputMaybe<Scalars['String']>;
+  song_name?: InputMaybe<Scalars['String']>;
 };
 
 /** ordering argument of a cursor */
 export enum Cursor_Ordering {
   /** ascending ordering of the cursor */
-  Asc = "ASC",
+  Asc = 'ASC',
   /** descending ordering of the cursor */
-  Desc = "DESC",
+  Desc = 'DESC'
 }
 
 /** columns and relationships of "likes" */
 export type Likes = {
-  __typename?: "likes";
+  __typename?: 'likes';
   /** An object relationship */
   charts?: Maybe<Charts>;
-  id: Scalars["Int"];
-  id_Chart?: Maybe<Scalars["Int"]>;
-  id_User?: Maybe<Scalars["String"]>;
+  id: Scalars['Int'];
+  id_Chart?: Maybe<Scalars['Int']>;
+  id_User?: Maybe<Scalars['String']>;
   /** An array relationship */
   likes: Array<Likes>;
 };
 
+
 /** columns and relationships of "likes" */
 export type LikesLikesArgs = {
   distinct_on?: InputMaybe<Array<Likes_Select_Column>>;
-  limit?: InputMaybe<Scalars["Int"]>;
-  offset?: InputMaybe<Scalars["Int"]>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Likes_Order_By>>;
   where?: InputMaybe<Likes_Bool_Exp>;
 };
@@ -255,11 +250,11 @@ export type Likes_Order_By = {
 /** select columns of table "likes" */
 export enum Likes_Select_Column {
   /** column name */
-  Id = "id",
+  Id = 'id',
   /** column name */
-  IdChart = "id_Chart",
+  IdChart = 'id_Chart',
   /** column name */
-  IdUser = "id_User",
+  IdUser = 'id_User'
 }
 
 /** order by stddev() on columns of table "likes" */
@@ -290,9 +285,9 @@ export type Likes_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Likes_Stream_Cursor_Value_Input = {
-  id?: InputMaybe<Scalars["Int"]>;
-  id_Chart?: InputMaybe<Scalars["Int"]>;
-  id_User?: InputMaybe<Scalars["String"]>;
+  id?: InputMaybe<Scalars['Int']>;
+  id_Chart?: InputMaybe<Scalars['Int']>;
+  id_User?: InputMaybe<Scalars['String']>;
 };
 
 /** order by sum() on columns of table "likes" */
@@ -322,21 +317,21 @@ export type Likes_Variance_Order_By = {
 /** column ordering options */
 export enum Order_By {
   /** in ascending order, nulls last */
-  Asc = "asc",
+  Asc = 'asc',
   /** in ascending order, nulls first */
-  AscNullsFirst = "asc_nulls_first",
+  AscNullsFirst = 'asc_nulls_first',
   /** in ascending order, nulls last */
-  AscNullsLast = "asc_nulls_last",
+  AscNullsLast = 'asc_nulls_last',
   /** in descending order, nulls first */
-  Desc = "desc",
+  Desc = 'desc',
   /** in descending order, nulls first */
-  DescNullsFirst = "desc_nulls_first",
+  DescNullsFirst = 'desc_nulls_first',
   /** in descending order, nulls last */
-  DescNullsLast = "desc_nulls_last",
+  DescNullsLast = 'desc_nulls_last'
 }
 
 export type Query_Root = {
-  __typename?: "query_root";
+  __typename?: 'query_root';
   /** fetch data from the table: "charts" */
   charts: Array<Charts>;
   /** fetch data from the table: "charts" using primary key columns */
@@ -347,32 +342,36 @@ export type Query_Root = {
   likes_by_pk?: Maybe<Likes>;
 };
 
+
 export type Query_RootChartsArgs = {
   distinct_on?: InputMaybe<Array<Charts_Select_Column>>;
-  limit?: InputMaybe<Scalars["Int"]>;
-  offset?: InputMaybe<Scalars["Int"]>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Charts_Order_By>>;
   where?: InputMaybe<Charts_Bool_Exp>;
 };
 
+
 export type Query_RootCharts_By_PkArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
+
 
 export type Query_RootLikesArgs = {
   distinct_on?: InputMaybe<Array<Likes_Select_Column>>;
-  limit?: InputMaybe<Scalars["Int"]>;
-  offset?: InputMaybe<Scalars["Int"]>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Likes_Order_By>>;
   where?: InputMaybe<Likes_Bool_Exp>;
 };
 
+
 export type Query_RootLikes_By_PkArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
 
 export type Subscription_Root = {
-  __typename?: "subscription_root";
+  __typename?: 'subscription_root';
   /** fetch data from the table: "charts" */
   charts: Array<Charts>;
   /** fetch data from the table: "charts" using primary key columns */
@@ -387,221 +386,149 @@ export type Subscription_Root = {
   likes_stream: Array<Likes>;
 };
 
+
 export type Subscription_RootChartsArgs = {
   distinct_on?: InputMaybe<Array<Charts_Select_Column>>;
-  limit?: InputMaybe<Scalars["Int"]>;
-  offset?: InputMaybe<Scalars["Int"]>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Charts_Order_By>>;
   where?: InputMaybe<Charts_Bool_Exp>;
 };
 
+
 export type Subscription_RootCharts_By_PkArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
 
+
 export type Subscription_RootCharts_StreamArgs = {
-  batch_size: Scalars["Int"];
+  batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Charts_Stream_Cursor_Input>>;
   where?: InputMaybe<Charts_Bool_Exp>;
 };
 
+
 export type Subscription_RootLikesArgs = {
   distinct_on?: InputMaybe<Array<Likes_Select_Column>>;
-  limit?: InputMaybe<Scalars["Int"]>;
-  offset?: InputMaybe<Scalars["Int"]>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Likes_Order_By>>;
   where?: InputMaybe<Likes_Bool_Exp>;
 };
 
+
 export type Subscription_RootLikes_By_PkArgs = {
-  id: Scalars["Int"];
+  id: Scalars['Int'];
 };
 
+
 export type Subscription_RootLikes_StreamArgs = {
-  batch_size: Scalars["Int"];
+  batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Likes_Stream_Cursor_Input>>;
   where?: InputMaybe<Likes_Bool_Exp>;
 };
 
-export type MyQueryQueryVariables = Exact<{
-  bpm: Scalars["String"];
-  uid: Scalars["String"];
+export type SearchQueryBasedOnSongBpmQueryVariables = Exact<{
+  bpm: Scalars['String'];
+  uid: Scalars['String'];
 }>;
 
-export type MyQueryQuery = {
-  __typename?: "query_root";
-  charts: Array<{
-    __typename?: "charts";
-    song_name: string;
-    id: number;
-    official_ranking_url?: string | null;
-    effector?: string | null;
-    lv?: number | null;
-    bpm: string;
-    likes: Array<{
-      __typename?: "likes";
-      id: number;
-      id_Chart?: number | null;
-      id_User?: string | null;
-    }>;
-  }>;
-};
 
-export const MyQueryDocumentQuery = gql`
-  query MyQuery($bpm: String!, $uid: String!) {
-    charts(where: { bpm: { _eq: $bpm } }) {
-      likes(where: { id_User: { _eq: $uid } }) {
-        id
-        id_Chart
-        id_User
-      }
+export type SearchQueryBasedOnSongBpmQuery = { __typename?: 'query_root', charts: Array<{ __typename?: 'charts', song_name: string, id: number, official_ranking_url?: string | null, effector?: string | null, lv?: number | null, bpm: string, likes: Array<{ __typename?: 'likes', id: number, id_Chart?: number | null, id_User?: string | null }> }> };
+
+export type SearchQueryBasedOnSongNameQueryVariables = Exact<{
+  song_name: Scalars['String'];
+  uid: Scalars['String'];
+}>;
+
+
+export type SearchQueryBasedOnSongNameQuery = { __typename?: 'query_root', charts: Array<{ __typename?: 'charts', song_name: string, id: number, official_ranking_url?: string | null, effector?: string | null, lv?: number | null, bpm: string, likes: Array<{ __typename?: 'likes', id: number, id_Chart?: number | null, id_User?: string | null }> }> };
+
+export type NotLoginQueryQueryVariables = Exact<{
+  bpm: Scalars['String'];
+}>;
+
+
+export type NotLoginQueryQuery = { __typename?: 'query_root', charts: Array<{ __typename?: 'charts', song_name: string, id: number, official_ranking_url?: string | null, effector?: string | null, lv?: number | null }> };
+
+export type SearchQueryBasedOnLikedQueryVariables = Exact<{
+  uid: Scalars['String'];
+}>;
+
+
+export type SearchQueryBasedOnLikedQuery = { __typename?: 'query_root', likes: Array<{ __typename?: 'likes', charts?: { __typename?: 'charts', song_name: string, id: number, lv?: number | null, official_ranking_url?: string | null } | null }> };
+
+
+export const SearchQueryBasedOnSongBpmDocument = gql`
+    query SearchQueryBasedOnSongBpm($bpm: String!, $uid: String!) {
+  charts(where: {bpm: {_eq: $bpm}}) {
+    likes(where: {id_User: {_eq: $uid}}) {
+      id
+      id_Chart
+      id_User
+    }
+    song_name
+    id
+    official_ranking_url
+    effector
+    lv
+    bpm
+  }
+}
+    `;
+
+export function useSearchQueryBasedOnSongBpmQuery(options: Omit<Urql.UseQueryArgs<SearchQueryBasedOnSongBpmQueryVariables>, 'query'>) {
+  return Urql.useQuery<SearchQueryBasedOnSongBpmQuery, SearchQueryBasedOnSongBpmQueryVariables>({ query: SearchQueryBasedOnSongBpmDocument, ...options });
+};
+export const SearchQueryBasedOnSongNameDocument = gql`
+    query SearchQueryBasedOnSongName($song_name: String!, $uid: String!) {
+  charts(where: {song_name: {_eq: $song_name}}) {
+    likes(where: {id_User: {_eq: $uid}}) {
+      id
+      id_Chart
+      id_User
+    }
+    song_name
+    id
+    official_ranking_url
+    effector
+    lv
+    bpm
+  }
+}
+    `;
+
+export function useSearchQueryBasedOnSongNameQuery(options: Omit<Urql.UseQueryArgs<SearchQueryBasedOnSongNameQueryVariables>, 'query'>) {
+  return Urql.useQuery<SearchQueryBasedOnSongNameQuery, SearchQueryBasedOnSongNameQueryVariables>({ query: SearchQueryBasedOnSongNameDocument, ...options });
+};
+export const NotLoginQueryDocument = gql`
+    query NotLoginQuery($bpm: String!) {
+  charts(where: {bpm: {_eq: $bpm}}) {
+    song_name
+    id
+    official_ranking_url
+    effector
+    lv
+  }
+}
+    `;
+
+export function useNotLoginQueryQuery(options: Omit<Urql.UseQueryArgs<NotLoginQueryQueryVariables>, 'query'>) {
+  return Urql.useQuery<NotLoginQueryQuery, NotLoginQueryQueryVariables>({ query: NotLoginQueryDocument, ...options });
+};
+export const SearchQueryBasedOnLikedDocument = gql`
+    query SearchQueryBasedOnLiked($uid: String!) {
+  likes(where: {id_User: {_eq: $uid}}) {
+    charts {
       song_name
       id
-      official_ranking_url
-      effector
       lv
-      bpm
+      official_ranking_url
     }
   }
-`;
-
-export function useMyQueryQuery(
-  options: Omit<Urql.UseQueryArgs<MyQueryQueryVariables>, "query">
-) {
-  return Urql.useQuery<MyQueryQuery, MyQueryQueryVariables>({
-    query: MyQueryDocumentQuery,
-    ...options,
-  });
 }
+    `;
 
-export const MyQueryDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "MyQuery" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "bpm" } },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "String" },
-            },
-          },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "uid" } },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "String" },
-            },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "charts" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "where" },
-                value: {
-                  kind: "ObjectValue",
-                  fields: [
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "bpm" },
-                      value: {
-                        kind: "ObjectValue",
-                        fields: [
-                          {
-                            kind: "ObjectField",
-                            name: { kind: "Name", value: "_eq" },
-                            value: {
-                              kind: "Variable",
-                              name: { kind: "Name", value: "bpm" },
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "likes" },
-                  arguments: [
-                    {
-                      kind: "Argument",
-                      name: { kind: "Name", value: "where" },
-                      value: {
-                        kind: "ObjectValue",
-                        fields: [
-                          {
-                            kind: "ObjectField",
-                            name: { kind: "Name", value: "id_User" },
-                            value: {
-                              kind: "ObjectValue",
-                              fields: [
-                                {
-                                  kind: "ObjectField",
-                                  name: { kind: "Name", value: "_eq" },
-                                  value: {
-                                    kind: "Variable",
-                                    name: { kind: "Name", value: "uid" },
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      { kind: "Field", name: { kind: "Name", value: "id" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "id_Chart" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "id_User" },
-                      },
-                    ],
-                  },
-                },
-                { kind: "Field", name: { kind: "Name", value: "song_name" } },
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "official_ranking_url" },
-                },
-                { kind: "Field", name: { kind: "Name", value: "effector" } },
-                { kind: "Field", name: { kind: "Name", value: "lv" } },
-                { kind: "Field", name: { kind: "Name", value: "bpm" } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<MyQueryQuery, MyQueryQueryVariables>;
+export function useSearchQueryBasedOnLikedQuery(options: Omit<Urql.UseQueryArgs<SearchQueryBasedOnLikedQueryVariables>, 'query'>) {
+  return Urql.useQuery<SearchQueryBasedOnLikedQuery, SearchQueryBasedOnLikedQueryVariables>({ query: SearchQueryBasedOnLikedDocument, ...options });
+};
