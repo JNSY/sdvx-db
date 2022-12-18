@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { effectors } from "../../../constants/effector_data/effectors";
 import { auth } from "../../../firebaseConfig";
-import { useMyQueryQuery } from "../../../graphql/generated";
+import { useSearchQueryBasedOnSongBpmQuery } from "../../../graphql/generated";
 import TextFiedlRhf from "../atoms/textFieldRhf";
 import BpmTable from "../molecules/bpmTable";
 
@@ -30,39 +30,6 @@ const DataBaseElements = () => {
     setSearchMode((event.target as HTMLInputElement).value);
   };
 
-  //NOTE:テーブル名とリレーション名の区別をきちんとつけること。
-  const searchQueryBasedOnBpm = `query MyQuery($bpm:String!,$uid:String!) {
-    charts(where: {bpm: {_eq: $bpm}}) {
-      likes(where: {id_User: {_eq: $uid}}) {
-        id
-        id_Chart
-        id_User
-      }
-      song_name
-      id
-      official_ranking_url
-      effector
-      lv
-      bpm
-    }
-  }`;
-
-  const searchQueryBasedOnSongName = `query MyQuery($song_name:String!,$uid:String!) {
-    charts(where: {song_name: {_eq: $song_name}}) {
-      likes(where: {id_User: {_eq: $uid}}) {
-        id
-        id_Chart
-        id_User
-      }
-      song_name
-      id
-      official_ranking_url
-      effector
-      lv
-      bpm
-    }
-  }`;
-
   const observeLoginUser = function (user: any) {
     //ログイン状態が変更された時の処理
     if (user) {
@@ -72,19 +39,9 @@ const DataBaseElements = () => {
     }
   };
 
-  const notLoginQuery = `query MyQuery($bpm:String!) {
-    charts(where: {bpm: {_eq: $bpm}}) {
-      song_name
-      id
-      official_ranking_url
-      effector
-      lv
-    }
-  }`;
-
   const shouldPause = bpm === undefined || bpm === null;
 
-  const [result, reexecuteQuery] = useMyQueryQuery({
+  const [result, reexecuteQuery] = useSearchQueryBasedOnSongBpmQuery({
     variables: { bpm: bpm!, uid: user?.uid! },
     pause: shouldPause,
   });

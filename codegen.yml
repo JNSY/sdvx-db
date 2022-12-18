@@ -10,7 +10,6 @@ generates:
       - "typescript"
       - "typescript-operations"
       - "typescript-urql"
-      - "typed-document-node"
     config:
       - skipTypename: false
       - withHooks: true
