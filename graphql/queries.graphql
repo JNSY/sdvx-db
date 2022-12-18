@@ -1,0 +1,52 @@
+query SearchQueryBasedOnSongBpm($bpm: String!, $uid: String!) {
+  charts(where: { bpm: { _eq: $bpm } }) {
+    likes(where: { id_User: { _eq: $uid } }) {
+      id
+      id_Chart
+      id_User
+    }
+    song_name
+    id
+    official_ranking_url
+    effector
+    lv
+    bpm
+  }
+}
+
+query SearchQueryBasedOnSongName($song_name: String!, $uid: String!) {
+  charts(where: { song_name: { _eq: $song_name } }) {
+    likes(where: { id_User: { _eq: $uid } }) {
+      id
+      id_Chart
+      id_User
+    }
+    song_name
+    id
+    official_ranking_url
+    effector
+    lv
+    bpm
+  }
+}
+
+query NotLoginQuery($bpm: String!) {
+  charts(where: { bpm: { _eq: $bpm } }) {
+    song_name
+    id
+    official_ranking_url
+    effector
+    lv
+  }
+}
+query SearchQueryBasedOnLiked($uid: String!) {
+  likes(where: { id_User: { _eq: $uid } }) {
+    charts {
+      song_name
+      id
+      lv
+      official_ranking_url
+    }
+  }
+}
+
