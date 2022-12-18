@@ -9,7 +9,6 @@ import TableRow from "@mui/material/TableRow";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useMutation } from "urql";
-import { CHART_TABLE_NAME } from "../../../constants/constants";
 import { auth } from "../../../firebaseConfig";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -40,7 +39,7 @@ function createData(elm: any) {
   const effector = elm["effector"];
   const official_ranking_url = elm["official_ranking_url"];
   //TODO:↓これはテーブル部分を変数にする
-  const like = elm[`${CHART_TABLE_NAME}_to_likes`];
+  const like = elm[`likes`];
   return {
     songid: songid,
     song_name: song_name,
@@ -71,7 +70,7 @@ export const BpmTable = ({
   const [bpmDataRows, setBpmDataRows] = useState([]);
 
   const addLike = `mutation MyMutation($songid:Int! ,$uid:String!) {insert_likes(objects: {id_Chart:$songid, id_User: $uid}){returning {
-      likes_to_charts {
+      charts {
             bpm
             chain
             composer
@@ -82,7 +81,7 @@ export const BpmTable = ({
     }`;
 
   const deleteLike = `mutation MyMutation($songid:Int! ,$uid:String!) {    delete_likes(where: {id_Chart:{_eq:$songid} , id_User: {_eq:$uid}}){      returning {
-      likes_to_charts {
+      charts {
         bpm
         chain
         composer

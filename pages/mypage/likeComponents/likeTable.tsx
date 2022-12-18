@@ -7,10 +7,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useAuthState } from "react-firebase-hooks/auth";
-import {
-  CHART_TABLE_NAME,
-  LIKE_TABLE_NAME,
-} from "../../../constants/constants";
 import { auth } from "../../../firebaseConfig";
 
 export default function LikeTable({
@@ -39,7 +35,6 @@ export default function LikeTable({
       border: 0,
     },
   }));
-
   function createData(elm: any) {
     const songid = elm["id"];
     const song_name = elm["song_name"];
@@ -47,8 +42,7 @@ export default function LikeTable({
     const bpm = elm["bpm"];
     const effector = elm["effector"];
     const official_ranking_url = elm["official_ranking_url"];
-    //TODO:↓これはテーブル部分を変数にする
-    const like = elm[`${CHART_TABLE_NAME}_to_${LIKE_TABLE_NAME}_many`];
+    const like = elm[`like`];
     return {
       songid: songid,
       song_name: song_name,
@@ -64,9 +58,7 @@ export default function LikeTable({
 
   let bpm_data_rows = [];
   if (fetchedData) {
-    bpm_data_rows = fetchedData.map((elm: any) =>
-      createData(elm["likes_to_charts"])
-    );
+    bpm_data_rows = fetchedData.map((elm: any) => createData(elm));
   }
 
   console.log(bpm_data_rows);
