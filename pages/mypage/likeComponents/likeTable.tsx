@@ -36,6 +36,7 @@ export default function LikeTable({
     },
   }));
   function createData(elm: any) {
+    elm = elm.charts;
     const songid = elm["id"];
     const song_name = elm["song_name"];
     const lv = elm["lv"];
@@ -77,32 +78,34 @@ export default function LikeTable({
             {loading ? (
               <p>loading...</p>
             ) : (
-              bpm_data_rows.map((row: any) => (
-                <StyledTableRow key={row.song_name}>
-                  <StyledTableCell component="th" scope="row">
-                    <a
-                      href={row.official_ranking_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline"
-                    >
-                      {row.song_name}
-                    </a>
-                  </StyledTableCell>
-                  <StyledTableCell component="th" scope="row">
-                    {row.lv}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    <button
-                      onClick={() => {
-                        onDeleteLike(user!.uid, row.songid);
-                      }}
-                    >
-                      <div className="text-red-500">★</div>
-                    </button>
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))
+              bpm_data_rows.map((row: any) =>
+                row ? (
+                  <StyledTableRow key={row.song_name}>
+                    <StyledTableCell component="th" scope="row">
+                      <a
+                        href={row.official_ranking_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline"
+                      >
+                        {row.song_name}
+                      </a>
+                    </StyledTableCell>
+                    <StyledTableCell component="th" scope="row">
+                      {row.lv}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      <button
+                        onClick={() => {
+                          onDeleteLike(user!.uid, row.songid);
+                        }}
+                      >
+                        <div className="text-red-500">★</div>
+                      </button>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ) : undefined
+              )
             )}
           </TableBody>
         </Table>
