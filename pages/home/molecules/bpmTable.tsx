@@ -6,12 +6,9 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import {
-  CHART_TABLE_NAME,
-  LIKE_TABLE_NAME,
-} from "../../../constants/constants";
+import { useMutation } from "urql";
 import { auth } from "../../../firebaseConfig";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -42,7 +39,7 @@ function createData(elm: any) {
   const effector = elm["effector"];
   const official_ranking_url = elm["official_ranking_url"];
   //TODO:↓これはテーブル部分を変数にする
-  const like = elm[`${CHART_TABLE_NAME}_to_${LIKE_TABLE_NAME}`];
+  const like = elm[`likes`];
   return {
     songid: songid,
     song_name: song_name,
@@ -56,31 +53,53 @@ function createData(elm: any) {
 
 // TODO:デバイス別にminWidthを変えられないか探る。PCだと広めに設定したいため(MUIとtailwindごっちゃにするからこうなる…)
 
-export default function BpmTable({
+export const BpmTable = ({
   selectedBpm,
   selectedEffector,
   searchMode,
   fetchedData,
   idToken,
-  onDeleteLike,
-  onAddLike,
 }: {
   selectedBpm: any;
   selectedEffector: any;
   searchMode: any; //TODO:タイプをSearchModeにするとエラーになる謎の解消
   fetchedData: any;
   idToken: string;
-  onDeleteLike: (user: any, rowsongid: any, idToken: any) => void;
-  onAddLike: (user: any, rowsongid: any, idToken: any) => void;
-}) {
+}) => {
   const [user, loading] = useAuthState(auth);
-  const [likeState, setLikeState] = useState([]); //中身はオブジェクト。。
-  let bpm_data_rows = [];
+  const [bpmDataRows, setBpmDataRows] = useState([]);
 
-  console.log("ふぇっちど", fetchedData);
-  if (fetchedData) {
-    bpm_data_rows = fetchedData.map((elm: any) => createData(elm));
-  }
+  const addLike = `mutation MyMutation($songid:Int! ,$uid:String!) {insert_likes(objects: {id_Chart:$songid, id_User: $uid}){returning {
+      charts {
+            bpm
+            chain
+            composer
+            effector
+            id
+          }
+        }}
+    }`;
+
+  const deleteLike = `mutation MyMutation($songid:Int! ,$uid:String!) {    delete_likes(where: {id_Chart:{_eq:$songid} , id_User: {_eq:$uid}}){      returning {
+      charts {
+        bpm
+        chain
+        composer
+        effector
+        id
+      }
+    }}
+  }`;
+
+  const [updateLikeResult, updateLike] = useMutation(addLike);
+  const [updateDeleteLikeResult, updateDeleteLike] = useMutation(deleteLike);
+
+  useEffect(() => {
+    console.log("ふぇっちど", fetchedData);
+    if (fetchedData) {
+      setBpmDataRows(fetchedData["charts"].map((elm: any) => createData(elm)));
+    }
+  }, [fetchedData]);
 
   return (
     <TableContainer component={Paper}>
@@ -97,10 +116,9 @@ export default function BpmTable({
             {user ? <StyledTableCell>FAV</StyledTableCell> : undefined}
           </TableRow>
         </TableHead>
-        {console.log(searchMode)}
         <TableBody>
           {/* TODO:エフェクターモードその他の追加 */}
-          {bpm_data_rows.map((row: any, index: number) =>
+          {bpmDataRows.map((row: any, index: number) =>
             searchMode == "BPM" || searchMode == "SONGNAME" ? (
               <StyledTableRow key={row.song_name}>
                 <StyledTableCell component="th" scope="row">
@@ -123,7 +141,10 @@ export default function BpmTable({
                     {row.like.length > 0 ? (
                       <button
                         onClick={() => {
-                          onDeleteLike(user!.uid, row.songid, idToken);
+                          updateDeleteLike({
+                            songid: row.songid,
+                            uid: user!.uid,
+                          });
                         }}
                       >
                         <div className="text-red-500">★</div>
@@ -131,7 +152,10 @@ export default function BpmTable({
                     ) : (
                       <button
                         onClick={() => {
-                          onAddLike(user!.uid, row.songid, idToken);
+                          updateLike({
+                            songid: row.songid,
+                            uid: user!.uid,
+                          });
                         }}
                       >
                         <div className="text-black-500">★</div>
@@ -146,4 +170,6 @@ export default function BpmTable({
       </Table>
     </TableContainer>
   );
-}
+};
+
+export default BpmTable;

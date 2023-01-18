@@ -1,11 +1,7 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import {
-  CHART_TABLE_NAME,
-  HASURA_ENDPOINT,
-  LIKE_TABLE_NAME,
-} from "../../constants/constants";
+import { HASURA_ENDPOINT } from "../../constants/constants";
 import { auth } from "../../firebaseConfig";
 import Footer from "../footer";
 import BottomAppBar from "../home/organisms/bottomAppBar";
@@ -22,8 +18,8 @@ const MyPage = () => {
   const [likedCharts, setLikedCharts] = useState([]); //ここの初期値は気を遣わないと、正しい値がuseEffectでセットされる前にmap関数でエラーになる(そもそもそういう実装はアンチパターンだったり…？)
 
   const searchQueryBasedOnLiked = `query MyQuery($uid:String!) {
-    ${LIKE_TABLE_NAME}(where: {id_User: {_eq: $uid}}) {
-      ${LIKE_TABLE_NAME}_to_${CHART_TABLE_NAME} {
+    likes(where: {id_User: {_eq: $uid}}) {
+      charts{
         song_name
         id
         lv
@@ -67,19 +63,9 @@ const MyPage = () => {
     console.log("useEffectが実行されました");
     fetchCharts(user?.uid);
   }, [idToken]);
-
   //いいねを削除する関数
   const deleteLike: any = (uid: any, songid: string) => {
     console.log("渡ってきたデータ", uid, songid);
-    const queryStr = `mutation MyMutation {    delete_likes(where: {id_Chart:{_eq:${songid}} , id_User: {_eq:${uid}}}){returning {
-      likes_to_likes_many(where: {id_User: {_eq: ${uid}}}) {
-        ${LIKE_TABLE_NAME}_to_${CHART_TABLE_NAME} {
-          song_name
-          id
-        }
-      }
-    }}
-  }`;
 
     const deleteMutation: any = async () => {
       const query = { query: queryStr };
@@ -91,16 +77,13 @@ const MyPage = () => {
         response.json().then((fetchChartsResult) => {
           console.log("like削除後の返却データ", fetchChartsResult);
           setLikedCharts(
-            fetchChartsResult["data"]["delete_likes"]["returning"][0][
-              "likes_to_likes_many"
-            ]
+            fetchChartsResult["data"]["delete_likes"]["returning"][0]["likes"]
           );
         });
       });
     };
     deleteMutation();
   };
-
   const onDeleteLike = (uid: any, rowsongid: any) => {
     console.log(rowsongid);
     deleteLike(uid, rowsongid);
