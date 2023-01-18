@@ -1,5 +1,5 @@
 import { useQuery } from "urql";
-const queryStr = "";
+const queryStr = "mutation($songid: String!, $uid: String!)";
 //いいねに追加する関数
 const useAddLike: any = (
   user: any,
