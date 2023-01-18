@@ -28,6 +28,17 @@ const MyPage = () => {
     }
   }`;
 
+  const queryStr = `query MyQuery($uid:String!) {
+    likes(where: {id_User: {_eq: $uid}}) {
+      charts{
+        song_name
+        id
+        lv
+        official_ranking_url
+      }
+    }
+  }`;
+
   const observeLoginUser = function (user: any) {
     if (user) {
       user.getIdToken().then((token: any) => {

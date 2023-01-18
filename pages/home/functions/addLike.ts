@@ -1,5 +1,5 @@
 import { useQuery } from "urql";
-
+const queryStr = "";
 //いいねに追加する関数
 const useAddLike: any = (
   user: any,
