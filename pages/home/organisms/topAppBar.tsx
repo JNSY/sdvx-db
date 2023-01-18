@@ -37,7 +37,7 @@ export const TopAppBar = () => {
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* Profile dropdown */}
-                <Menu as="div" className="relative ml-3">
+                <Menu as="div" className="relative">
                   <div>
                     <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
@@ -78,15 +78,14 @@ export const TopAppBar = () => {
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }: { active: any }) => (
-                            <Link
-                              href="/mypage"
+                            <a
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
-                              マイページ
-                            </Link>
+                              <Link href="/mypage">マイページ</Link>
+                            </a>
                           )}
                         </Menu.Item>
                         <Menu.Item>
