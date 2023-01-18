@@ -8,7 +8,7 @@ import Footer from "./footer";
 import HeadComp from "./head";
 import Header from "./header";
 import BottomAppBar from "./home/organisms/bottomAppBar";
-import BpmElements from "./home/organisms/bpmElements";
+import DataBaseElements from "./home/organisms/bpmElements";
 import TopAppBar from "./home/organisms/topAppBar";
 
 export default function Home() {
@@ -53,7 +53,7 @@ export default function Home() {
             </div>
             <div className="flex max-w-10 justify-center clear-left">
               {user ? (
-                <BpmElements />
+                <DataBaseElements />
               ) : (
                 <div
                   style={{

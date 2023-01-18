@@ -18,7 +18,7 @@ const MyPage = () => {
   const [likedCharts, setLikedCharts] = useState([]); //ここの初期値は気を遣わないと、正しい値がuseEffectでセットされる前にmap関数でエラーになる(そもそもそういう実装はアンチパターンだったり…？)
 
   const searchQueryBasedOnLiked = `query MyQuery($uid:String!) {
-    like(where: {id_User: {_eq: $uid}}) {
+    likes(where: {id_User: {_eq: $uid}}) {
       charts{
         song_name
         id
